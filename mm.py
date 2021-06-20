@@ -85,8 +85,8 @@ def tictactoe():
 
     question=input('do you want to continue playing? y/n :  ').lower()
     if question=='y':
-        # for key in board_keys:
-        #         dict[key] = " "
+        for key in board_keys:
+                dict[key] = " "
         tictactoe()
 if __name__ == "__main__":                           
     tictactoe()
