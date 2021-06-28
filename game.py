@@ -2,7 +2,7 @@ import pygame
 import random
 pygame.init()
 
-screen = pygame.display.set_mode((800, 800))
+screen = pygame.display.set_mode((1000, 800))
 
 # icon = pygame.image.load()
 # pygame.diplay.set_caption()
@@ -13,13 +13,14 @@ playerimg=pygame.transform.scale(playerImg,(100,100))
 playerx=250
 playery=700
 playerychange=280
+playerxchange=50
 
 #background
 backImg=pygame.image.load('desert.png')
-backimg=pygame.transform.scale(backImg,(800,800))
+backimg=pygame.transform.scale(backImg,(1000,800))
 backgroundx=0
 backgroundy=0
-backgroundchange=3
+backgroundchange=4
 
 
 #obstacle
@@ -38,7 +39,7 @@ def cactus(x,y):
 
 def background(x,y):
     screen.blit(backimg,(x,y))
-    screen.blit(backimg,(x-798,y))
+    screen.blit(backimg,(x-998,y))
 
 def player(x,y):
     screen.blit(playerimg,(x,y))
@@ -53,40 +54,30 @@ while running:
                 jump=True
             if jump==True:
                 playery-=playerychange
+                playerx+=playerxchange
+                
         if event.type==pygame.KEYUP:
             if jump==True and event.key==pygame.K_SPACE:
                 jump=False
+
             if jump==False:
                 playerychange=280
+                playerx=cactusx+50
                 playery+=playerychange
-                player(playerx,playery)
-            #     if event.key==pygame.K_UP:
-            #         playerychange=-250
 
-                
-        #     if event.key==pygame.K_DOWN:
-        #         playerychange=250
-                
-        # if event.type==pygame.KEYUP:
-        #     if event.key==pygame.K_UP:
-        #         playery=700
-                
-        #     if event.key==pygame.K_DOWN:
-        #         playery=700
+                if playerx>=700:
+                    playerx=250
+                player(playerx,playery)
+            
                     
     screen.fill((0,0,0))
     background(backgroundx,backgroundy)
     backgroundx-=backgroundchange
     if backgroundx<=0:
-        backgroundx=798
+        backgroundx=998
 
     player(playerx,playery)
-    # playery-=playerychange
-    # if playery<450:
-    #     playery=700
-    # if playery>=580:
-    #     playery=550
-
+   
 
     cactus(cactusx,cactusy)
     cactusx-=cactusychange
